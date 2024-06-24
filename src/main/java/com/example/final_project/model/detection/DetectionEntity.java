@@ -17,6 +17,7 @@ public class DetectionEntity {
     private String licensePlateFound;
     @Column(name = "evidence_img")
     private String evidenceImg;
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "detection_time")
     private LocalDateTime detectionTime;
     @Column(name = "user_detection")

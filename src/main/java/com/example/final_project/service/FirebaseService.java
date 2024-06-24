@@ -17,4 +17,3 @@ public class FirebaseService {
         return querySnapshot.get().getDocuments();
     }
 }
-

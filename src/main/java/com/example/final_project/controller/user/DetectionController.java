@@ -5,12 +5,10 @@ import com.example.final_project.model.detection.DetectionEntity;
 import com.example.final_project.model.detection.DetectionRequest;
 import com.example.final_project.model.detection.DetectionResponse;
 import java.util.stream.Collectors;
-
-import com.example.final_project.model.user.UserEntity;
-import com.example.final_project.model.user.UserRegisterRequest;
 import com.example.final_project.repository.detection.DetectionRepository;
 import com.example.final_project.repository.user.UserRepository;
 import com.example.final_project.service.FirebaseService;
+import com.example.final_project.validator.DetectionValidator;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +28,9 @@ public class DetectionController {
 
     @Autowired
     private DetectionRepository detectionRepository;
+
+    @Autowired
+    private DetectionValidator detectionValidator;
 
     @Autowired
     private DetectionRequest detectionRequest;
@@ -68,6 +69,8 @@ public class DetectionController {
         detectionRequest.setUserDetection(userId);
         DetectionEntity detectionEntity = detectionConverter.requestToEntity(detectionRequest);
         String name = userRepository.findNameByUserId(detectionRequest.getUserDetection());
+        detectionValidator.isTimeValid(detectionRepository.findDetectionTimeByUserDetection(userId));
+        //detectionRepository.save(detectionEntity);
         return detectionConverter.entityToResponse(detectionEntity,name);
     }
 }
