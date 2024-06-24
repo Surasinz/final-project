@@ -4,11 +4,15 @@ import com.example.final_project.converter.detection.DetectionConverter;
 import com.example.final_project.model.detection.DetectionEntity;
 import com.example.final_project.model.detection.DetectionRequest;
 import com.example.final_project.model.detection.DetectionResponse;
+
+import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import com.example.final_project.repository.detection.DetectionRepository;
 import com.example.final_project.repository.user.UserRepository;
 import com.example.final_project.service.FirebaseService;
 import com.example.final_project.validator.DetectionValidator;
+import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -60,17 +64,28 @@ public class DetectionController {
     @PostMapping("/api/detection")
     public DetectionResponse newDetected(DetectionRequest detectionRequest) throws Exception {
         List<QueryDocumentSnapshot> documents = firebaseService.fetchDataFromFirestore("detections");
+
         QueryDocumentSnapshot latestDocument = documents.get(documents.size() - 1);
+
         String recognition = latestDocument.getString("recognition");
         String imgbbUrl = latestDocument.getString("imgbb_url");
+
+        Timestamp detectionTimestamp = latestDocument.getTimestamp("detection");
+        LocalDateTime detection = detectionTimestamp.toSqlTimestamp().toLocalDateTime();
+
         Long userId = userRepository.findUserIdByLicensePlate(recognition);
         detectionRequest.setLicensePlateFound(recognition);
         detectionRequest.setEvidenceImg(imgbbUrl);
         detectionRequest.setUserDetection(userId);
+        detectionRequest.setDetectedTime(detection);
+
         DetectionEntity detectionEntity = detectionConverter.requestToEntity(detectionRequest);
         String name = userRepository.findNameByUserId(detectionRequest.getUserDetection());
-        detectionValidator.isTimeValid(detectionRepository.findDetectionTimeByLicensePlateFound(recognition));
-        //detectionRepository.save(detectionEntity);
-        return detectionConverter.entityToResponse(detectionEntity,name);
+
+        detectionValidator.validateAndSaveIfNeeded(detectionEntity,detectionRepository.findDetectionTimeByLicensePlateFound(recognition));
+        // detectionRepository.save(detectionEntity);
+
+        return detectionConverter.entityToResponse(detectionEntity, name);
     }
+
 }

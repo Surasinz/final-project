@@ -20,7 +20,7 @@ public class FirebaseConfig {
     public FirebaseApp initializeFirebaseApp() throws IOException {
         logger.log(Level.INFO, "Initializing Firebase...");
 
-        InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("finalproject-f1a6e-firebase-adminsdk-rb9vv-0308c101b6.json");
+        InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("finalproject-f1a6e-firebase-adminsdk-rb9vv-e417da78bf.json");
 
         if (serviceAccount == null) {
             throw new IOException("File not found");

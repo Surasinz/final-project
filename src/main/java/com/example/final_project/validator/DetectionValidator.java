@@ -1,21 +1,36 @@
 package com.example.final_project.validator;
 
+import com.example.final_project.converter.detection.DetectionConverter;
+import com.example.final_project.model.detection.DetectionEntity;
+import com.example.final_project.repository.detection.DetectionRepository;
+import com.example.final_project.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.chrono.ChronoLocalDate;
 
 @Component
 public class DetectionValidator {
-    public void isTimeValid(LocalDateTime dateTime) throws Exception {
-        LocalDate today = LocalDate.now();
-        LocalTime currentTime = LocalTime.now();
-        boolean isSameDay = dateTime.toLocalDate().isEqual(today);
-        boolean isPastFiveMinutes = dateTime.toLocalTime().isBefore(currentTime.minusMinutes(5));
-        if (!(isSameDay&&isPastFiveMinutes)) {
+    @Autowired
+    DetectionRepository detectionRepository;
+    public void validateDetectionTime(LocalDateTime detectionTime,LocalDateTime detected) throws Exception {
+        boolean isSameDay = detectionTime.toLocalDate().isEqual(ChronoLocalDate.from(detected));
+        boolean isPastFiveMinutes = detectionTime.isBefore(detected.minusMinutes(5));
+
+        if (!(isSameDay && isPastFiveMinutes)) {
             throw new Exception("Detection time is not valid. It must be today and more than 5 minutes ago.");
         }
     }
+
+    public void validateAndSaveIfNeeded(DetectionEntity detectionEntity,LocalDateTime detected) throws Exception {
+        if (detected != null) {
+            validateDetectionTime(detected, detectionEntity.getDetectionTime());
+        } else {
+           // detectionRepository.save(detectionEntity);
+        }
+    }
+
 }
