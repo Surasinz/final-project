@@ -6,8 +6,8 @@ import com.example.final_project.model.detection.DetectionRequest;
 import com.example.final_project.model.detection.DetectionResponse;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.stream.Collectors;
+
 import com.example.final_project.repository.detection.DetectionRepository;
 import com.example.final_project.repository.user.UserRepository;
 import com.example.final_project.service.FirebaseService;
@@ -49,16 +49,17 @@ public class DetectionController {
         return detectionConverter.entitiesToResponses(detectionEntity, name);
     }
 
-
     @GetMapping("/api/detection/all")
     public List<DetectionResponse> getAllDetections() {
         List<DetectionEntity> detectionEntities = detectionRepository.findAll();
-        List<Long> userIds = detectionEntities.stream()
-                .map(DetectionEntity::getUserDetection)
+        return detectionEntities.stream()
+                .map(detectionEntity -> {
+                    Long userId = detectionEntity.getUserDetection();
+                    String name = userRepository.findNameByUserId(userId);
+                    String faculty = userRepository.findFacultyByUserId(userId);
+                    return detectionConverter.entityToFacultyResponse(detectionEntity, name, faculty);
+                })
                 .collect(Collectors.toList());
-        List<String> names = userRepository.findAllNamesByUserIds(userIds);
-        List<String> faculties = userRepository.findAllFacultiesByNames(names);
-        return detectionConverter.allEntitiesToResponses(detectionEntities, names, faculties);
     }
 
     @PostMapping("/api/detection")

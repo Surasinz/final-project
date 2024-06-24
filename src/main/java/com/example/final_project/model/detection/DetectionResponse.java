@@ -15,4 +15,5 @@ public class DetectionResponse {
     private String name;
     private String evidence;
     private String faculty;
+    private String studentId;
 }

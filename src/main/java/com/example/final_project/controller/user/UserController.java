@@ -32,6 +32,11 @@ public class UserController {
         userValidator.validateUserLoginAndPassword(userEntity, password);
         return (userConverter.entityToResponse(userEntity));
     }
+    @GetMapping("/api/user/profile")
+    public UserRegisterResponse getUserProfile(@RequestParam Long userId) throws Exception{
+        UserEntity userEntity = userRepository.findOneByUserId(userId);
+        return (userConverter.entityToRegisterResponse(userEntity));
+    }
     @PostMapping("/api/user/register")
     public UserRegisterResponse registerUser(@RequestBody UserRegisterRequest userRegisterRequest) throws Exception {
         UserEntity existingUser = userRepository.findOneByStudentID(userRegisterRequest.getStudentID());

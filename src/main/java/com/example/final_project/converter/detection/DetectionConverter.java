@@ -33,9 +33,6 @@ public class DetectionConverter {
     }
 
     public List<DetectionResponse> allEntitiesToResponses(List<DetectionEntity> detectionEntities, List<String> names, List<String> faculties) {
-        if (detectionEntities.size() != names.size()) {
-            throw new IllegalArgumentException("Number of entities and names do not match");
-        }
         List<DetectionResponse> responseList = new ArrayList<>();
         for (int i = 0; i < detectionEntities.size(); i++) {
             DetectionEntity detectionEntity = detectionEntities.get(i);
