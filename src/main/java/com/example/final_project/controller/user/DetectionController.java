@@ -69,7 +69,7 @@ public class DetectionController {
         detectionRequest.setUserDetection(userId);
         DetectionEntity detectionEntity = detectionConverter.requestToEntity(detectionRequest);
         String name = userRepository.findNameByUserId(detectionRequest.getUserDetection());
-        detectionValidator.isTimeValid(detectionRepository.findDetectionTimeByUserDetection(userId));
+        detectionValidator.isTimeValid(detectionRepository.findDetectionTimeByLicensePlateFound(recognition));
         //detectionRepository.save(detectionEntity);
         return detectionConverter.entityToResponse(detectionEntity,name);
     }
