@@ -27,26 +27,35 @@ public class UserScoreConverter {
 
 
 
-    public UserScoreResponseDate entityToDateResponse(UserScoreEntity userScoreEntity, DetectionEntity detectionEntity) {
+    public UserScoreResponseDate entityToDateResponse(UserScoreEntity userScoreEntity, List<DetectionEntity> detectionEntities, String name) {
         UserScoreResponseDate response = new UserScoreResponseDate();
-        response.setDate(detectionEntity.getDetectionTime().getDayOfMonth());
-        response.setMonth(detectionEntity.getDetectionTime().getMonthValue());
-        response.setDay(String.valueOf(detectionEntity.getDetectionTime().getDayOfWeek()));
-        response.setMonthName(String.valueOf(detectionEntity.getDetectionTime().getMonth()));
-        response.setLicensePlate(detectionEntity.getLicensePlateFound());
+        response.setName(name);
         response.setScore(userScoreEntity.getScore());
-        response.setEvident(detectionEntity.getEvidenceImg());
+
+        List<UserScoreResponseDate.DetectionDetail> detectionDetails = detectionEntities.stream()
+                .map(detectionEntity -> {
+                    UserScoreResponseDate.DetectionDetail detail = new UserScoreResponseDate.DetectionDetail();
+                    detail.setDate(detectionEntity.getDetectionTime().getDayOfMonth());
+                    detail.setMonth(detectionEntity.getDetectionTime().getMonthValue());
+                    detail.setDay(String.valueOf(detectionEntity.getDetectionTime().getDayOfWeek()));
+                    detail.setMonthName(String.valueOf(detectionEntity.getDetectionTime().getMonth()));
+                    detail.setLicensePlate(detectionEntity.getLicensePlateFound());
+                    detail.setEvident(detectionEntity.getEvidenceImg());
+                    return detail;
+                })
+                .collect(Collectors.toList());
+
+        response.setDetections(detectionDetails);
         return response;
     }
 
-    public List<UserScoreResponseDate> entitiesToDateResponses(List<UserScoreEntity> userScoreEntities, List<DetectionEntity> detectionEntities) {
+    public List<UserScoreResponseDate> entitiesToDateResponses(List<UserScoreEntity> userScoreEntities, List<DetectionEntity> detectionEntities, String name) {
         return userScoreEntities.stream()
                 .map(userScoreEntity -> {
-                    DetectionEntity matchingDetectionEntity = detectionEntities.stream()
+                    List<DetectionEntity> matchingDetectionEntities = detectionEntities.stream()
                             .filter(detectionEntity -> detectionEntity.getUserId().equals(userScoreEntity.getUserId()))
-                            .findFirst()
-                            .orElse(null);
-                    return matchingDetectionEntity != null ? entityToDateResponse(userScoreEntity, matchingDetectionEntity) : null;
+                            .collect(Collectors.toList());
+                    return entityToDateResponse(userScoreEntity, matchingDetectionEntities, name);
                 })
                 .collect(Collectors.toList());
     }

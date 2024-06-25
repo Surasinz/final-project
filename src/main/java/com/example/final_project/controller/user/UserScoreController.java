@@ -28,9 +28,9 @@ public class UserScoreController {
     @GetMapping("/api/userScore")
     public List<UserScoreResponseDate> getAllUserById(@RequestParam Long userId) {
         String name = userRepository.findNameByUserId(userId);
-        List<UserScoreEntity> userScoreEntity = userScoreRepository.findAllByUserId(userId);
-        List<DetectionEntity> detectionEntity = detectionRepository.findAllByUserId(userId);
-        return (userScoreConverter.entitiesToDateResponses(userScoreEntity,detectionEntity));
+        List<UserScoreEntity> userScoreEntities = userScoreRepository.findAllByUserId(userId);
+        List<DetectionEntity> detectionEntities = detectionRepository.findAllByUserId(userId);
+        return userScoreConverter.entitiesToDateResponses(userScoreEntities, detectionEntities, name);
     }
     @PatchMapping("/api/userScore/update")
     public UserScoreResponse updateScoreByUserId(@RequestParam Long userId, @RequestBody UserScoreRequest userScoreRequest){

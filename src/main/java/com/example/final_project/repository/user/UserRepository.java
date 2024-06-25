@@ -10,14 +10,8 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity findOneByStudentID(String studentID);
     UserEntity findOneByUserId(Long userId);
-    @Query("SELECT u.name FROM UserEntity u WHERE u.licensePlate = :licensePlate")
-    String findNameByUserId(String licensePlate);
     @Query("SELECT u.name FROM UserEntity u WHERE u.id = :userId")
     String findNameByUserId(Long userId);
-    @Query("SELECT u.studentID FROM UserEntity u WHERE u.name = :name")
-    String findStudentIDByName(String name);
-    @Query("SELECT u.name FROM UserEntity u WHERE u.id IN :userIds")
-    List<String> findAllNamesByUserIds(List<Long> userIds);
     @Query("SELECT u.faculty FROM UserEntity u WHERE u.id = :userId")
     String findFacultyByUserId(Long userId);
     @Query("SELECT u.userId FROM UserEntity u WHERE u.licensePlate = :licensePlate")
