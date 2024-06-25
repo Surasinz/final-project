@@ -3,6 +3,8 @@ package com.example.final_project.converter.detection;
 import com.example.final_project.model.detection.DetectionEntity;
 import com.example.final_project.model.detection.DetectionRequest;
 import com.example.final_project.model.detection.DetectionResponse;
+import com.example.final_project.repository.user.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class DetectionConverter {
+    @Autowired
+    UserRepository userRepository;
     public List<DetectionResponse> entitiesToResponses(List<DetectionEntity> detectionEntities, String name) {
         return detectionEntities.stream()
                 .map(detectionEntity -> entityToResponse(detectionEntity, name))
@@ -29,6 +33,7 @@ public class DetectionConverter {
         response.setDay(String.valueOf(detectionEntity.getDetectionTime().getDayOfWeek()));
         response.setMonthName(String.valueOf(detectionEntity.getDetectionTime().getMonth()));
         response.setTime(Time.valueOf(detectionEntity.getDetectionTime().toLocalTime()));
+        response.setLicensePlate(userRepository.findLicensePlateByName(name));
         return response;
     }
 
