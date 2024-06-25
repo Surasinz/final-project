@@ -12,12 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class UserScoreConverter {
-
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
     public UserScoreResponse entityToResponse(UserScoreEntity userScoreEntity,String name) {
         UserScoreResponse response = new UserScoreResponse();
         response.setName(name);
@@ -38,6 +39,7 @@ public class UserScoreConverter {
                     detail.setMonth(detectionEntity.getDetectionTime().getMonthValue());
                     detail.setDay(String.valueOf(detectionEntity.getDetectionTime().getDayOfWeek()));
                     detail.setMonthName(String.valueOf(detectionEntity.getDetectionTime().getMonth()));
+                    detail.setTime(detectionEntity.getDetectionTime().toLocalTime().format(TIME_FORMATTER));
                     detail.setLicensePlate(detectionEntity.getLicensePlateFound());
                     detail.setEvident(detectionEntity.getEvidenceImg());
                     return detail;

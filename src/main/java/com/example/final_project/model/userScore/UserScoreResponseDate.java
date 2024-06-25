@@ -1,5 +1,6 @@
 package com.example.final_project.model.userScore;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ public class UserScoreResponseDate {
     public static class DetectionDetail {
         private Integer date;
         private String day;
+        private String time;
         private Integer month;
         private String monthName;
         private String licensePlate;
