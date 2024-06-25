@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface DetectionRepository extends JpaRepository<DetectionEntity, Long> {
-    List<DetectionEntity> findAllByLicensePlateFound (String licensePlateFound);
+    List<DetectionEntity> findAllByUserId (Long userId);
 
     List<DetectionEntity> findAllByUserDetection (Long userId);
 

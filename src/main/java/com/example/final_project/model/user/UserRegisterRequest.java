@@ -11,7 +11,7 @@ public class UserRegisterRequest {
     private String password;
     private String gender;
     private String faculty;
-    private String major;
+    private String field;
     private String email;
     private String profile;
     private String licensePlate;

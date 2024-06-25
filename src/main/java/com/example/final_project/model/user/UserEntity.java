@@ -29,7 +29,7 @@ public class UserEntity {
     @Column(name = "faculty")
     private String faculty;
     @Column(name = "field")
-    private String major;
+    private String field;
     @Column(name = "email")
     private String email;
     @Column(name = "profile")

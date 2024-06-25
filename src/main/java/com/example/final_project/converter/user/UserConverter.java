@@ -26,7 +26,7 @@ public class UserConverter {
         userEntity.setStudentID(userRequest.getStudentID());
         userEntity.setName(userRequest.getName());
         userEntity.setEmail(userRequest.getEmail());
-        userEntity.setMajor(userRequest.getMajor());
+        userEntity.setField(userRequest.getField());
         userEntity.setFaculty(userRequest.getFaculty());
         userEntity.setPassword(userRequest.getPassword());
         userEntity.setSurName(userRequest.getSurName());
@@ -41,7 +41,7 @@ public class UserConverter {
         UserRegisterResponse response = new UserRegisterResponse();
         response.setName(userEntity.getName());
         response.setSurName(userEntity.getSurName());
-        response.setMajor(userEntity.getMajor());
+        response.setField(userEntity.getField());
         response.setStudentId(userEntity.getStudentID());
         response.setFaculty(userEntity.getFaculty());
         response.setGender(userEntity.getGender());

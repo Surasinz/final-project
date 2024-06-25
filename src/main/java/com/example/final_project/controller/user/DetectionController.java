@@ -43,9 +43,9 @@ public class DetectionController {
 
 
     @GetMapping("/api/detection")
-    public List<DetectionResponse> getUserByLicensePlateAndProvince(@RequestParam String licensePlate) {
-        List<DetectionEntity> detectionEntity = detectionRepository.findAllByLicensePlateFound(licensePlate);
-        String name = userRepository.findNameByLicensePlate(licensePlate);
+    public List<DetectionResponse> getUserByUserID(@RequestParam Long userId) {
+        List<DetectionEntity> detectionEntity = detectionRepository.findAllByUserId(userId);
+        String name = userRepository.findNameByUserId(userId);
         return detectionConverter.entitiesToResponses(detectionEntity, name);
     }
 
