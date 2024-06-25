@@ -7,4 +7,5 @@ public class UserLoginResponse {
     private String name;
     private String studentID;
     private String role;
+    private Long userId;
 }

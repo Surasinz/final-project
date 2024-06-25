@@ -18,6 +18,7 @@ public class UserConverter {
         response.setStudentID(userEntity.getStudentID());
         response.setName(userEntity.getName());
         response.setRole(userEntity.getRole());
+        response.setUserId(userEntity.getUserId());
         return response;
     }
     public UserEntity requestToEntity(UserRegisterRequest userRequest) {
