@@ -22,5 +22,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     String findFacultyByUserId(Long userId);
     @Query("SELECT u.userId FROM UserEntity u WHERE u.licensePlate = :licensePlate")
     Long findUserIdByLicensePlate(String licensePlate);
+    @Query("SELECT u.licensePlate FROM UserEntity u WHERE u.name = :name")
+    String findLicensePlateByName(String name);
 
 }
