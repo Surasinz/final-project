@@ -21,5 +21,5 @@ public class DetectionEntity {
     @Column(name = "detection_time")
     private LocalDateTime detectionTime;
     @Column(name = "user_detection")
-    private Long userDetection;
+    private Long userId;
 }

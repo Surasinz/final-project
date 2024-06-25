@@ -43,7 +43,7 @@ public class UserScoreConverter {
         return userScoreEntities.stream()
                 .map(userScoreEntity -> {
                     DetectionEntity matchingDetectionEntity = detectionEntities.stream()
-                            .filter(detectionEntity -> detectionEntity.getUserDetection().equals(userScoreEntity.getUserId()))
+                            .filter(detectionEntity -> detectionEntity.getUserId().equals(userScoreEntity.getUserId()))
                             .findFirst()
                             .orElse(null);
                     return matchingDetectionEntity != null ? entityToDateResponse(userScoreEntity, matchingDetectionEntity) : null;

@@ -54,7 +54,7 @@ public class DetectionController {
         List<DetectionEntity> detectionEntities = detectionRepository.findAll();
         return detectionEntities.stream()
                 .map(detectionEntity -> {
-                    Long userId = detectionEntity.getUserDetection();
+                    Long userId = detectionEntity.getUserId();
                     String name = userRepository.findNameByUserId(userId);
                     String faculty = userRepository.findFacultyByUserId(userId);
                     return detectionConverter.entityToFacultyResponse(detectionEntity, name, faculty);

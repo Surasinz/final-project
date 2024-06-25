@@ -11,8 +11,6 @@ import java.util.List;
 public interface DetectionRepository extends JpaRepository<DetectionEntity, Long> {
     List<DetectionEntity> findAllByUserId (Long userId);
 
-    List<DetectionEntity> findAllByUserDetection (Long userId);
-
     @Query(value = "SELECT d.detectionTime FROM DetectionEntity d WHERE d.licensePlateFound = :licensePlateFound")
     LocalDateTime findDetectionTimeByLicensePlateFound(String licensePlateFound);
 

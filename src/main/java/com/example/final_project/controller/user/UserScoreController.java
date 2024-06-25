@@ -29,7 +29,7 @@ public class UserScoreController {
     public List<UserScoreResponseDate> getAllUserById(@RequestParam Long userId) {
         String name = userRepository.findNameByUserId(userId);
         List<UserScoreEntity> userScoreEntity = userScoreRepository.findAllByUserId(userId);
-        List<DetectionEntity> detectionEntity = detectionRepository.findAllByUserDetection(userId);
+        List<DetectionEntity> detectionEntity = detectionRepository.findAllByUserId(userId);
         return (userScoreConverter.entitiesToDateResponses(userScoreEntity,detectionEntity));
     }
     @PatchMapping("/api/userScore/update")

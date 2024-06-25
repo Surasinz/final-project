@@ -64,7 +64,7 @@ public class DetectionConverter {
 
     public DetectionEntity requestToEntity(DetectionRequest detectionRequest) {
         DetectionEntity entity = new DetectionEntity();
-        entity.setUserDetection(detectionRequest.getUserDetection());
+        entity.setUserId(detectionRequest.getUserDetection());
         entity.setDetectionTime(detectionRequest.getDetectedTime());
         entity.setLicensePlateFound(detectionRequest.getLicensePlateFound());
         entity.setEvidenceImg(detectionRequest.getEvidenceImg());
