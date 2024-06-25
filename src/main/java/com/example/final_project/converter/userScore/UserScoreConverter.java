@@ -26,7 +26,6 @@ public class UserScoreConverter {
     }
 
 
-
     public UserScoreResponseDate entityToDateResponse(UserScoreEntity userScoreEntity, List<DetectionEntity> detectionEntities, String name) {
         UserScoreResponseDate response = new UserScoreResponseDate();
         response.setName(name);

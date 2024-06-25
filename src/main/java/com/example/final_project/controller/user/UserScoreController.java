@@ -33,9 +33,11 @@ public class UserScoreController {
         return userScoreConverter.entitiesToDateResponses(userScoreEntities, detectionEntities, name);
     }
     @PatchMapping("/api/userScore/update")
-    public UserScoreResponse updateScoreByUserId(@RequestParam Long userId, @RequestBody UserScoreRequest userScoreRequest){
+    public UserScoreResponse updateScoreByUserId(@RequestParam Long userId){
         UserScoreEntity userScoreEntity = userScoreRepository.findByUserId(userId);
-        UserScoreEntity updatedUserScoreEntity = userScoreConverter.requestToEntity(userScoreRequest.getScore(),userScoreEntity);
+        List<DetectionEntity> detectionEntities = detectionRepository.findAllByUserId(userId);
+        Integer score = 100-detectionEntities.size();
+        UserScoreEntity updatedUserScoreEntity = userScoreConverter.requestToEntity(score,userScoreEntity);
         userScoreRepository.save(updatedUserScoreEntity);
         String name = userRepository.findNameByUserId(userId);
         return userScoreConverter.entityToResponse(updatedUserScoreEntity,name);
