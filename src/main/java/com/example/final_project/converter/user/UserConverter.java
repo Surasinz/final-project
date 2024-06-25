@@ -41,11 +41,12 @@ public class UserConverter {
         UserRegisterResponse response = new UserRegisterResponse();
         response.setName(userEntity.getName());
         response.setSurName(userEntity.getSurName());
-        response.setEmail(userEntity.getEmail());
         response.setField(userEntity.getField());
+        response.setStudentId(userEntity.getStudentID());
         response.setFaculty(userEntity.getFaculty());
         response.setGender(userEntity.getGender());
         response.setPassword(userEntity.getPassword());
+        response.setLicensePlate(userEntity.getLicensePlate());
         return response;
     }
 }

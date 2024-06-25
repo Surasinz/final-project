@@ -9,7 +9,8 @@ public class UserRegisterResponse {
     private String surName;
     private String faculty;
     private String field;
-    private String email;
+    private String studentId;
     private String gender;
     private String password;
+    private String licensePlate;
 }
