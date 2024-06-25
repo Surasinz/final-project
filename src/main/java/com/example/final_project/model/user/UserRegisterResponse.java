@@ -10,4 +10,6 @@ public class UserRegisterResponse {
     private String faculty;
     private String field;
     private String email;
+    private String gender;
+    private String password;
 }

@@ -43,6 +43,8 @@ public class UserConverter {
         response.setEmail(userEntity.getEmail());
         response.setField(userEntity.getField());
         response.setFaculty(userEntity.getFaculty());
+        response.setGender(userEntity.getGender());
+        response.setPassword(userEntity.getPassword());
         return response;
     }
 }
