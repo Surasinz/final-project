@@ -87,7 +87,7 @@ public class DetectionController {
         detectionRequest.setEvidenceImg(imgbbUrl);
         detectionRequest.setUserDetection(userId);
         detectionRequest.setDetectedTime(detection);
-        LocalDateTime oldDetectionEntity = detectionRepository.findTopByLicensePlateFoundOrderByIdDesc(recognition).getDetectionTime();
+        DetectionEntity oldDetectionEntity = detectionRepository.findTopByLicensePlateFoundOrderByIdDesc(recognition);
         DetectionEntity detectionEntity = detectionConverter.requestToEntity(detectionRequest);
         String name = userRepository.findNameByUserId(detectionRequest.getUserDetection());
         detectionValidator.validateAndSaveIfNeeded(oldDetectionEntity, detection);
