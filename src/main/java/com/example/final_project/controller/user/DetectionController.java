@@ -61,6 +61,14 @@ public class DetectionController {
                 })
                 .collect(Collectors.toList());
     }
+    @DeleteMapping("/api/detection")
+    public DetectionResponse deleteDetectionsByDetectionId(@RequestParam Long id) throws Exception {
+        DetectionEntity detectionEntity = detectionRepository.findOneById(id);
+        String name = userRepository.findNameByUserId(detectionEntity.getUserId());
+        detectionValidator.validateNullDetectionEntity(detectionEntity);
+        detectionRepository.deleteById(id);
+        return detectionConverter.entityToResponse(detectionEntity,name);
+    }
 
     @PostMapping("/api/detection")
     public DetectionResponse newDetected(DetectionRequest detectionRequest) throws Exception {

@@ -20,8 +20,8 @@ public class DetectionValidator {
         boolean isSameDay = detectionTime.toLocalDate().isEqual(ChronoLocalDate.from(detected));
         boolean isPastFiveMinutes = detectionTime.isBefore(detected.minusMinutes(5));
 
-        if (!(isSameDay && isPastFiveMinutes)) {
-            throw new Exception("Detection time is not valid. It must be today and more than 5 minutes ago.");
+        if ((isSameDay && !isPastFiveMinutes)) {
+            throw new Exception("Detection time is not valid. It must be more than 5 minutes");
         }
     }
 
@@ -32,5 +32,9 @@ public class DetectionValidator {
            // detectionRepository.save(detectionEntity);
         }
     }
-
+    public void validateNullDetectionEntity(DetectionEntity detectionEntity) throws Exception {
+        if (detectionEntity == null) {
+            throw new Exception("can't find detection id");
+        }
+    }
 }
