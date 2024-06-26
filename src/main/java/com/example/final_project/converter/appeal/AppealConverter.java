@@ -1,5 +1,7 @@
 package com.example.final_project.converter.appeal;
 
+import com.example.final_project.model.appeal.AppealEntity;
+import com.example.final_project.model.appeal.AppealRequest;
 import com.example.final_project.model.appeal.AppealResponse;
 import com.example.final_project.model.detection.DetectionEntity;
 import org.springframework.stereotype.Component;
@@ -14,5 +16,11 @@ public class AppealConverter {
         response.setDetectionId(detectionEntity.getId());
         response.setAppealId(appealId);
         return response;
+    }
+    public AppealEntity requestToEntity (AppealRequest appealRequest){
+        AppealEntity entity = new AppealEntity();
+        entity.setDetectionId(appealRequest.getDetectionId());
+        entity.setUserId(appealRequest.getUserId());
+        return  entity;
     }
 }
