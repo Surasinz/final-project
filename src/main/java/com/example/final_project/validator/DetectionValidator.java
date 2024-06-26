@@ -25,11 +25,9 @@ public class DetectionValidator {
         }
     }
 
-    public void validateAndSaveIfNeeded(DetectionEntity detectionEntity,LocalDateTime detected) throws Exception {
-        if (detected != null) {
-            validateDetectionTime(detected, detectionEntity.getDetectionTime());
-        } else {
-           // detectionRepository.save(detectionEntity);
+    public void validateAndSaveIfNeeded(LocalDateTime detectionTime,LocalDateTime detected) throws Exception {
+        if (detectionTime != null) {
+            validateDetectionTime(detectionTime, detected);
         }
     }
     public void validateNullDetectionEntity(DetectionEntity detectionEntity) throws Exception {

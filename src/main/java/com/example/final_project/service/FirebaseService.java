@@ -13,7 +13,7 @@ public class FirebaseService {
 
     public List<QueryDocumentSnapshot> fetchDataFromFirestore(String collectionName) throws ExecutionException, InterruptedException {
         Firestore db = FirestoreClient.getFirestore();
-        ApiFuture<QuerySnapshot> querySnapshot = db.collection(collectionName).get();
+        ApiFuture<QuerySnapshot> querySnapshot = db.collection(collectionName).orderBy("detection", Query.Direction.DESCENDING).get();
         return querySnapshot.get().getDocuments();
     }
 }
