@@ -19,5 +19,6 @@ public class UserScoreResponseDate {
         private String monthName;
         private String licensePlate;
         private String evident;
+        private Long id;
     }
 }

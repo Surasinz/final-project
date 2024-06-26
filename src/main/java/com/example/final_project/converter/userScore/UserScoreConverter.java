@@ -42,6 +42,7 @@ public class UserScoreConverter {
                     detail.setTime(detectionEntity.getDetectionTime().toLocalTime().format(TIME_FORMATTER));
                     detail.setLicensePlate(detectionEntity.getLicensePlateFound());
                     detail.setEvident(detectionEntity.getEvidenceImg());
+                    detail.setId(detectionEntity.getId());
                     return detail;
                 })
                 .collect(Collectors.toList());
