@@ -43,6 +43,7 @@ public class UserScoreConverter {
                     detail.setLicensePlate(detectionEntity.getLicensePlateFound());
                     detail.setEvident(detectionEntity.getEvidenceImg());
                     detail.setId(detectionEntity.getId());
+                    detail.setUserId(detectionEntity.getUserId());
                     return detail;
                 })
                 .collect(Collectors.toList());

@@ -12,6 +12,7 @@ public class UserScoreResponseDate {
 
     @Data
     public static class DetectionDetail {
+        private Long userId;
         private Integer date;
         private String day;
         private String time;
