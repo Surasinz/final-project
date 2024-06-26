@@ -90,9 +90,8 @@ public class DetectionController {
         DetectionEntity oldDetectionEntity = detectionRepository.findTopByLicensePlateFoundOrderByIdDesc(recognition);
         DetectionEntity detectionEntity = detectionConverter.requestToEntity(detectionRequest);
         String name = userRepository.findNameByUserId(detectionRequest.getUserDetection());
-        detectionValidator.validateAndSaveIfNeeded(oldDetectionEntity, detection);
+        detectionValidator.validateAndSaveIfNeeded(oldDetectionEntity, detectionEntity);
         detectionRepository.save(detectionEntity);
         return detectionConverter.entityToResponse(detectionEntity, name);
     }
-
 }

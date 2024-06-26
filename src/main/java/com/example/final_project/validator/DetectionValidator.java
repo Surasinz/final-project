@@ -15,17 +15,18 @@ public class DetectionValidator {
     DetectionRepository detectionRepository;
     @Autowired
     DetectionResponse detectionResponse;
-    public void validateDetectionTime(LocalDateTime detectionTime,LocalDateTime detected) throws Exception {
-        boolean isSameDay = detectionTime.toLocalDate().isEqual(ChronoLocalDate.from(detected));
-        boolean isPastFiveMinutes = detectionTime.isBefore(detected.minusMinutes(5));
-
+    public void validateDetectionTime(LocalDateTime detectionTime,DetectionEntity detected) throws Exception {
+        boolean isSameDay = detectionTime.toLocalDate().isEqual(ChronoLocalDate.from(detected.getDetectionTime()));
+        boolean isPastFiveMinutes = detectionTime.isBefore(detected.getDetectionTime().minusMinutes(5));
         if ((isSameDay && !isPastFiveMinutes)) {
             detectionResponse.setResponseCode("400");
             throw new Exception("Detection time is not valid. It must be more than 5 minutes");
+        }else {
+            detectionRepository.save(detected);
         }
     }
 
-    public void validateAndSaveIfNeeded(DetectionEntity oldDetectionTime,LocalDateTime detected) throws Exception {
+    public void validateAndSaveIfNeeded(DetectionEntity oldDetectionTime,DetectionEntity detected) throws Exception {
         if (oldDetectionTime != null) {
             validateDetectionTime(oldDetectionTime.getDetectionTime(), detected);
         }
