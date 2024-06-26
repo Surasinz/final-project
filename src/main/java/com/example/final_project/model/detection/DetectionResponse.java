@@ -17,4 +17,5 @@ public class DetectionResponse {
     private String faculty;
     private String studentId;
     private String LicensePlate;
+    private String responseCode;
 }

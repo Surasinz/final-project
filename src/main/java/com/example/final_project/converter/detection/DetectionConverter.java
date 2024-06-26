@@ -34,6 +34,7 @@ public class DetectionConverter {
         response.setMonthName(String.valueOf(detectionEntity.getDetectionTime().getMonth()));
         response.setTime(Time.valueOf(detectionEntity.getDetectionTime().toLocalTime()));
         response.setLicensePlate(userRepository.findLicensePlateByName(name));
+        response.setResponseCode("200");
         return response;
     }
 
