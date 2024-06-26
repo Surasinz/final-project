@@ -30,7 +30,7 @@ public class AppealConverter {
         return  entity;
     }
     private String formatDetectedTime(LocalDateTime detectedTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SS");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         return detectedTime.format(formatter);
     }
 }
