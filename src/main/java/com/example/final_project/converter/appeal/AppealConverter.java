@@ -5,12 +5,18 @@ import com.example.final_project.model.appeal.AppealRequest;
 import com.example.final_project.model.appeal.AppealResponse;
 import com.example.final_project.model.detection.DetectionEntity;
 import org.springframework.stereotype.Component;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import java.sql.Timestamp;
 
 @Component
 public class AppealConverter {
     public AppealResponse detectionEntityToResponse(DetectionEntity detectionEntity, Long appealId) {
         AppealResponse response = new AppealResponse();
-        response.setDetectedTime(detectionEntity.getDetectionTime());
+        LocalDateTime detectionTime = detectionEntity.getDetectionTime();
+        String formattedDetectionTime = formatDetectedTime(detectionTime);
+        response.setDetectedTime(formattedDetectionTime);
         response.setEvidenceImage(detectionEntity.getEvidenceImg());
         response.setLicensePlate(detectionEntity.getLicensePlateFound());
         response.setDetectionId(detectionEntity.getId());
@@ -22,5 +28,9 @@ public class AppealConverter {
         entity.setDetectionId(appealRequest.getDetectionId());
         entity.setUserId(appealRequest.getUserId());
         return  entity;
+    }
+    private String formatDetectedTime(LocalDateTime detectedTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SS");
+        return detectedTime.format(formatter);
     }
 }
