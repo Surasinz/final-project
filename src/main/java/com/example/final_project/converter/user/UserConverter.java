@@ -26,7 +26,7 @@ public class UserConverter {
         userEntity.setStudentID(userRequest.getStudentID());
         userEntity.setName(userRequest.getName());
         userEntity.setEmail(userRequest.getEmail());
-        userEntity.setMajor(userRequest.getField());
+        userEntity.setMajor(userRequest.getMajor());
         userEntity.setFaculty(userRequest.getFaculty());
         userEntity.setPassword(userRequest.getPassword());
         userEntity.setSurName(userRequest.getSurName());
