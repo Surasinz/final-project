@@ -21,5 +21,6 @@ public class UserScoreResponseDate {
         private String licensePlate;
         private String evident;
         private Long id;
+        private Long detectionId;
     }
 }

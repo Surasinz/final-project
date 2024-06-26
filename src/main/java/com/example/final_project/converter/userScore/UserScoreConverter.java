@@ -44,6 +44,7 @@ public class UserScoreConverter {
                     detail.setEvident(detectionEntity.getEvidenceImg());
                     detail.setId(detectionEntity.getId());
                     detail.setUserId(detectionEntity.getUserId());
+                    detail.setDetectionId(detectionEntity.getId());
                     return detail;
                 })
                 .collect(Collectors.toList());
