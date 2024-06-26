@@ -1,5 +1,6 @@
 package com.example.final_project.controller.user;
 
+import com.example.final_project.business.detection.DetectionBusiness;
 import com.example.final_project.converter.detection.DetectionConverter;
 import com.example.final_project.model.detection.DetectionEntity;
 import com.example.final_project.model.detection.DetectionRequest;
@@ -39,6 +40,8 @@ public class DetectionController {
     @Autowired
     private DetectionRequest detectionRequest;
     @Autowired
+    private DetectionBusiness detectionBusiness;
+    @Autowired
     private FirebaseService firebaseService;
 
 
@@ -74,11 +77,10 @@ public class DetectionController {
     public DetectionResponse newDetected(DetectionRequest detectionRequest) throws Exception {
         List<QueryDocumentSnapshot> documents = firebaseService.fetchDataFromFirestore("detections");
 
-        QueryDocumentSnapshot latestDocument = documents.get(documents.size() - 1);
+        QueryDocumentSnapshot latestDocument = documents.get(0);
 
-        String recognition = latestDocument.getString("recognition");
+        String recognition = detectionBusiness.reformatRecognition(latestDocument.getString("recognition"));
         String imgbbUrl = latestDocument.getString("imgbb_url");
-
         Timestamp detectionTimestamp = latestDocument.getTimestamp("detection");
         LocalDateTime detection = detectionTimestamp.toSqlTimestamp().toLocalDateTime();
 
@@ -92,7 +94,7 @@ public class DetectionController {
         String name = userRepository.findNameByUserId(detectionRequest.getUserDetection());
 
         detectionValidator.validateAndSaveIfNeeded(detectionEntity,detectionRepository.findDetectionTimeByLicensePlateFound(recognition));
-        // detectionRepository.save(detectionEntity);
+        detectionRepository.save(detectionEntity);
 
         return detectionConverter.entityToResponse(detectionEntity, name);
     }
