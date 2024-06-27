@@ -81,7 +81,7 @@ public class DetectionController {
         String recognition = detectionBusiness.reformatRecognition(latestDocument.getString("recognition"));
         String imgbbUrl = latestDocument.getString("imgbb_url");
         Timestamp detectionTimestamp = latestDocument.getTimestamp("detection");
-        LocalDateTime detection = detectionTimestamp.toSqlTimestamp().toLocalDateTime().minusHours(7);
+        LocalDateTime detection = detectionTimestamp.toSqlTimestamp().toLocalDateTime();
         Long userId = userRepository.findUserIdByLicensePlate(recognition);
         detectionRequest.setLicensePlateFound(recognition);
         detectionRequest.setEvidenceImg(imgbbUrl);
