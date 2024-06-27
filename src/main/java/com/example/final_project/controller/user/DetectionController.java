@@ -7,8 +7,6 @@ import com.example.final_project.model.detection.DetectionRequest;
 import com.example.final_project.model.detection.DetectionResponse;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.stream.Collectors;
 
 import com.example.final_project.repository.detection.DetectionRepository;
@@ -82,8 +80,8 @@ public class DetectionController {
         QueryDocumentSnapshot latestDocument = documents.get(0);
         String recognition = detectionBusiness.reformatRecognition(latestDocument.getString("recognition"));
         String imgbbUrl = latestDocument.getString("imgbb_url");
-        ZonedDateTime detectionTimestamp = latestDocument.getTimestamp("detection").toDate().toInstant().atZone(ZoneId.of("Asia/Bangkok"));
-        LocalDateTime detection = detectionTimestamp.toLocalDateTime();
+        Timestamp detectionTimestamp = latestDocument.getTimestamp("detection");
+        LocalDateTime detection = detectionTimestamp.toSqlTimestamp().toLocalDateTime().minusHours(7);
         Long userId = userRepository.findUserIdByLicensePlate(recognition);
         detectionRequest.setLicensePlateFound(recognition);
         detectionRequest.setEvidenceImg(imgbbUrl);
